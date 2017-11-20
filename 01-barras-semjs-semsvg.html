@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Um gráfico de barras feitos de divs</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <style>
+    .chart div {
+      font: 10px sans-serif;
+      background-color: steelblue;
+      text-align: right;
+      padding: 3px;
+      margin: 1px;
+      color: white;
+    }
+
+    /* Seletores dinâmicos: */
+/*     .chart div:hover {
+      background-color: yellow;
+      color: steelblue;
+    } */
+  </style>
+</head>
+
+<div class="container">
+  <div class="row">
+    <h3>Um gráfico estático só em html</h3>
+    <p>
+      Divs, com os dados codificados no estilo das barras usando css.
+    </p>
+  </div>
+  <div class="row">
+    <div class="chart">
+      <div style="width: 40px;">4</div>
+      <div style="width: 80px;">8</div>
+      <div style="width: 150px;">15</div>
+      <div style="width: 160px;">16</div>
+      <div style="width: 230px;">23</div>
+      <div style="width: 420px;">42</div>
+    </div>
+  </div>
+</div>
