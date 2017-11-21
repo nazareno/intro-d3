@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Barras simples</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h2>Um SVG dinâmico</h2>
+      </div>
+      <div class="row mychart" id="chart">
+      </div>
+    </div>
+
+    <style>
+      .mychart rect {
+        fill: steelblue;
+      }
+
+      .mychart text {
+        fill: white;
+        font: 10px sans-serif;
+        text-anchor: end;
+      }
+    </style>
+
+    <script type="text/javascript">
+      "use strict"
+      var dados = [40, 80, 96, 76, 23, 42, 32, 90, 11, 22, 14];
+      var largura = 200,
+          altura = 500;
+
+      var svg = d3.select('#chart')
+                .append('svg')
+                .attr('width', largura)
+                .attr('height', altura);
+
+      /* Edite o código abaixo para criar um gráfico de barras horizontais
+       *
+       * Crie funções que a partir dos dados definem os atributos x, y, width
+       * e height dos retângulos que são as barras.
+       *
+       * Dica: você pode criar funções de dois parâmetros (function(d, i)) para
+       * isso, onde o primeiro (d) é o dado e o segundo (i) é o índice desse dado.
+       * O índice é importante para dizer onde a barra será desenhada, por exemplo.
+       * (Nem pense em fazer hardcoded :)).
+       */
+
+      var barras = svg.selectAll('rect')
+                      .data(dados)
+                      .enter()
+                        .append('rect')
+                        .attr('x', 0) // Que tal uma função com dois parâmetros: d e i?
+                        .attr('y', 0)
+                        .attr('width', 30)
+                        .attr('height', 20);
+
+      /* Mais dicas :
+       * - As barras ficam mais legíveis se não encostarem umas nas outras.
+       * - Que tal deixar a barra com o mouse em cima (hover) em uma cor diferente?
+       * vê lá nosso primeiro exemplo.
+       * - Sua visualização funciona se mudarmos a altura, largura ou o número de pontos, certo?
+       * - O comprimento do array de dados é dados.length
+       */
+
+    </script>
+  </body>
+</html>
