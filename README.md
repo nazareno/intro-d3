@@ -1,6 +1,6 @@
 # Uma introdução a d3
 
-v4.
+Introdução a D3.js versão 4 para alguém que talvez nunca tenha programado em javascript.
 
 Para navegar nos exemplos e nas suas alterações, rode um servidor web. No terminal, dentro da pasta onde você clonou esse repo, faça:
 

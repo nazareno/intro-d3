@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Um gráfico de barras feitos de divs</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <h1>
+          Olar d3
+        </h1>
+        <br>
+        <p id="textao">
+          Texto qualquer.
+        </p>
+        <p id="explicacao">
+          Mas página sem funcionar. Conserte aí.
+        </p>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      console.log(d3.version);
+      // dica: está faltando carregar a biblioteca d3. ela está em https://d3js.org/d3.v4.min.js
+      d3.select("#textao")
+        .text("Um parágrafo de textão dizendo várias coisas para o mundo")
+        .style("color", "red")
+      // use o mesmo princípio para mudar o parágrafo da explicação.
+    </script>
+  </body>
+</html>
