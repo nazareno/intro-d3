@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Barras simples</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h2>Barras com dados carregados</h2>
+      </div>
+      <div class="row mychart" id="chart">
+      </div>
+    </div>
+
+    <style>
+      .mychart rect {
+        fill: steelblue;
+      }
+
+	  .mychart rect:hover {
+        fill: goldenrod;
+      }
+
+      .mychart text {
+        font: 12px sans-serif;
+        text-anchor: left;
+      }
+    </style>
+
+    <script type="text/javascript">
+		"use strict"
+		d3.tsv('dados/alphabet.tsv', function(dados) {
+            var	margin = {top: 10, right: 20, bottom:30, left: 25},
+    			larguraBarra = 60,
+    			espacoBarra = 30,
+    			larguraSVG = larguraBarra * dados.length - margin.left - margin.right,
+    			alturaSVG = 400 - margin.top - margin.bottom;
+
+    		var grafico = d3.select('#chart')
+    			.append('svg')
+    			.attr('width', larguraSVG + margin.left + margin.right)
+    			.attr('height', alturaSVG + margin.top + margin.bottom)
+    			.append('g')
+    			.attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')');
+
+    		/* Edite o código abaixo para criar um gráfico de barras verticais com escala e eixos
+    		*
+    		* Crie funções que a partir dos dados definem os atributos x, y, width
+    		* e height dos retângulos que são as barras.
+    		*
+    		* Dica: você pode criar funções de dois parâmetros (function(d, i)) para
+    		* isso, onde o primeiro (d) é o dado e o segundo (i) é o índice desse dado.
+    		* O índice é importante para dizer onde a barra será desenhada, por exemplo.
+    		* (Nem pense em fazer hardcoded :)).
+    		*/
+
+    		/* Parte 1: Refaça o gráfico de barras verticais do último
+    		   exercício utilizando escalas em d3
+    		*/
+
+    		var x = d3.scaleBand()
+    			.domain(dados.map((d, i) => d.letter))
+    			.rangeRound([0, larguraSVG]);
+
+    		var y = d3.scaleLinear()
+    			.domain([0, d3.max(dados, (d) => d.frequency)])
+    			.range([alturaSVG, 0]);
+
+    		var barras = grafico.selectAll('g')
+    			.data(dados)
+    			.enter()
+    			.append('g')
+    			.attr('transform', (d) => 'translate(' + x(d.letter) + ', ' + y(d.frequency) +')');
+
+    		barras.append('rect')
+    			.attr('x', x.bandwidth() / 2 - espacoBarra / 2)
+    			.attr('width', larguraBarra - espacoBarra)
+    			.attr('height', (d) => alturaSVG - y(d.frequency));
+
+    		barras.append('text')
+    			.attr('x', (larguraBarra - espacoBarra) / 2)
+    			.attr('y', 15)
+    			.style('opacity', 0)
+    			.text((d) => d.frequency);
+
+    		grafico.append('g')
+    			.attr('transform', 'translate(0,' + alturaSVG + ')')
+    			.call(d3.axisBottom(x));
+
+    		grafico.append('g')
+    			.attr('transform', 'translate(0,0)')
+    			.call(d3.axisLeft(y));
+        });
+
+    </script>
+  </body>
+</html>
