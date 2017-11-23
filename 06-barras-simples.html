@@ -49,14 +49,14 @@
        * (Nem pense em fazer hardcoded :)).
        */
 
-      var barras = svg.selectAll('rect')
-                      .data(dados)
-                      .enter()
-                        .append('rect')
-                        .attr('x', 0) // A função com dois parâmetros pode entrar aqui
-                        .attr('y', 0) // e aqui
-                        .attr('width', 30)
-                        .attr('height', 20);
+      svg.selectAll('rect')
+          .data(dados)
+          .enter()
+            .append('rect')
+              .attr('x', 0) // A função com dois parâmetros pode entrar aqui
+              .attr('y', 0) // e aqui
+              .attr('width', 30)
+              .attr('height', 20);
 
       /* Mais dicas :
        * - As barras ficam mais legíveis se não encostarem umas nas outras. Para isso
