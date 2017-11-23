@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Barras simples</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h1>
+          Mais uns detalhes sobre SVG
+        </h1>
+      </div>
+      <div class="row">
+        <br>
+        <svg width=300 height=300>
+          <g>
+            <circle r="20" cx="200" cy = "200" fill-opacity="0.4"/>
+            <text x="200" y = "200">Um rótulo</text>
+          </g>
+          <g transform="translate(100,50)">
+            <circle r="5" fill-opacity="0.4"/>
+            <text>Outro rótulo</text>
+          </g>
+        </svg>
+      </div>
+      <div class="row">
+        <p>
+          Inspecione o código e repare que com o elemento &lt;g&gt; podemos aplicar uma mudança de posição a elementos de um grupo. Isso facilita bastante.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
