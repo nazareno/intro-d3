@@ -1,0 +1,61 @@
+[{
+  "mes": 1,
+  "dez_percentil": 19.34,
+  "mediana": 67.9,
+  "noventa-percentil": 89.86
+}, {
+  "mes": 2,
+  "dez_percentil": 20.32,
+  "mediana": 65.2,
+  "noventa-percentil": 89.14
+}, {
+  "mes": 3,
+  "dez_percentil": 20.95,
+  "mediana": 78.7,
+  "noventa-percentil": 100
+}, {
+  "mes": 4,
+  "dez_percentil": 27.14,
+  "mediana": 87.1,
+  "noventa-percentil": 100
+}, {
+  "mes": 5,
+  "dez_percentil": 27.16,
+  "mediana": 85.1,
+  "noventa-percentil": 102.04
+}, {
+  "mes": 6,
+  "dez_percentil": 26,
+  "mediana": 83.5,
+  "noventa-percentil": 100.88
+}, {
+  "mes": 7,
+  "dez_percentil": 24.88,
+  "mediana": 81.7,
+  "noventa-percentil": 100.32
+}, {
+  "mes": 8,
+  "dez_percentil": 23.68,
+  "mediana": 79.9,
+  "noventa-percentil": 99.24
+}, {
+  "mes": 9,
+  "dez_percentil": 22.36,
+  "mediana": 77.8,
+  "noventa-percentil": 96.82
+}, {
+  "mes": 10,
+  "dez_percentil": 20.92,
+  "mediana": 74,
+  "noventa-percentil": 94.12
+}, {
+  "mes": 11,
+  "dez_percentil": 19.62,
+  "mediana": 70.4,
+  "noventa-percentil": 91.34
+}, {
+  "mes": 12,
+  "dez_percentil": 19.06,
+  "mediana": 67.3,
+  "noventa-percentil": 89.42
+}]

@@ -7,6 +7,12 @@
 // =========================================
 // PARTE 1 : referências para funções
 // =========================================
+// funções podem ter nome
+function funcaoConvencional(){
+    console.log("Funções são camelCase em js")
+}
+
+// mas podemos referenciar uma função anônima via variável
 f1 = function(a){ console.log(a + "!!!")}
 f1("olar")
 
@@ -50,8 +56,8 @@ f3 = function(f, a){
 
 f3(console.log, "uma mensagem")
 
-// Funções anônimas são um atalho
-// em vez de :
+// Não precisamos da variável para referenciar em alguns casos.
+// Em vez de :
 fe = function(b){
   console.log(b + "!!!")
 }
@@ -59,7 +65,7 @@ f3(fe, "uma mensagem")
 
 // podemos fazer
 f3(function(b){ console.log(b + "!!!") }, "uma mensagem")
-// ou
+// ou, mais bonito:
 f3(b => { console.log(b + "!!!") }, "uma mensagem")
 
 // caso quiséssemos dois parâmetros:
