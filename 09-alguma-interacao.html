@@ -10,27 +10,36 @@
   <body>
     <div class="container">
       <div class="row">
-        <h2>Alguma interação</h2>
+        <div class="col-md-8">
+          <h2>Alguma interação</h2>
+        </div>
       </div>
       <div class="row">
-        <p>
-           Aqui usamos como exemplo uma visualização de dados das unidades acadêmicas do Campus I da UFCG.
-           Os dados vem do portal de transparência do governo federal e do Cursos UFCG. Quando falamos em idade, estamos falando na idade dos professores da UA.
-        </p>
-        <p>
-          O objetivo desse exemplo é demonstrar como alterar os elementos SVG da visualização a partir de botões e sobrevoo (hover) com o mouse.
-          Examine como isso é feito aqui e altere o exemplo para que a cor dos pontos também
-          codifique o atributo sendo mostrado no raio do círculo. Uma dica é que
-          é possível criar escalas de cor aproveitnado o colorbrewer.js importado aqui e
-          d3.scaleQuantize().domain(...).range(colorbrewer.Reds[5]).
-          Todas as escalas: https://bl.ocks.org/mbostock/5577023
-        </p>
+        <div class="col-md-10">
+          <p>
+             Aqui usamos como exemplo uma visualização de dados das unidades acadêmicas do Campus I da UFCG.
+          </p>
+          <p>
+             Os dados vem do portal de transparência do governo federal e do Cursos UFCG. Quando falamos em idade, estamos falando na idade dos professores da UA.
+          </p>
+          <p>
+            O objetivo desse exemplo é demonstrar como alterar os elementos SVG da visualização a partir de botões e sobrevoo (hover) com o mouse.
+          </p>
+          <p>
+            Examine como isso é feito aqui e altere o exemplo para que a cor dos pontos também
+            codifique o atributo sendo mostrado no raio do círculo. Uma dica é que
+            é possível criar escalas de cor aproveitnado o colorbrewer.js importado aqui e
+            d3.scaleQuantize().domain(...).range(colorbrewer.Reds[5]).
+            Todas as escalas: https://bl.ocks.org/mbostock/5577023
+          </p>
+        </div>
       </div>
       <div class="row">
-        <h3>Unidade Acadêmica</h3>
-        <div class="row mychart" id="chart">
-        <div class="col-md-9" id="controls" />
-      </div>
+        <div class="col-md-10">
+          <h3>Unidade Acadêmica</h3>
+          <div class="row mychart" id="chart"/>
+          <div class="col-md-9" id="controls" />
+        </div>
       </div>
     </div>
 
