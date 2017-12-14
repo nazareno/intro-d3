@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Manipulando dados com d3.js</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h3>Agrupar e sumarizar</h3>
+      <p>
+        Para operações como fazer média por horário, máximo por tipo de meio de
+        transporte em js, usaremos funções de ajuda do d3.
+      </p>
+      <p>
+        Abra o console (ctrl + shift + i) e vá colando o código para ir entendendo.
+      <p>
+        Além desses exemplos, recomendo dar uma olhada <a href="http://learnjsdata.com/group_data.html">nesse tutorial</a>
+      </p>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-8">
+      <p>
+        Primeiro leia o dado. Ele só está lido quando o console imprimir "foi".
+        Estamos usando os eventos na atividade recente de nazareno no github.
+      </p>
+      <pre><code>
+  "use strict"
+
+  // ler os dados
+  var gh_nazareno, repos_nazareno;
+  d3.json("https://api.github.com/users/nazareno/events",
+          d => {gh_nazareno = d; console.log("foi")})
+  d3.json("https://api.github.com/users/nazareno/repos?sort=updated&direction=desc",
+          d => {repos_nazareno = d; console.log("foi")})
+      </code></pre>
+
+      <br>
+      <p>
+        Dê uma examinada no objeto <b>gh_nazareno</b> para entendê-lo.
+        Próximo passo: <i>quantos eventos de cada tipo temos?</i>.
+        A forma JS de responder isso é gerando um objeto aninhado e
+        operando nele. Objeto aninhado é isso:
+      </p>
+      <pre><code>
+  d3.nest()               // nest -> queremos gerar um objeto aninhado
+    .key(d => d.type)     // key  -> a chave será o atributo type de cada objeto
+    .entries(gh_nazareno)      // entries -> a lista de objetos será essa
+
+  // group by com duas chaves
+  d3.nest()
+    .key(d => d.repo.name)
+    .key(d => d.type)
+    .entries(gh_nazareno)
+
+  // que é diferente de
+  d3.nest()
+    .key(d => d.type)
+    .key(d => d.repo.name)
+    .entries(gh_nazareno)
+      </code></pre>
+
+      <br>
+      <p>
+        Para sumarizar por grupo agora:
+      </p>
+      <pre><code>
+  // pelo comprimento
+  d3.nest()
+    .key(d => d.type)
+    .rollup(v => v.length)
+    .entries(gh_nazareno)
+
+  // pela media de algo (popularidade por linguagem)
+  d3.nest()
+    .key(d => d.language)
+    .rollup(v => d3.mean(v, d => d.watchers))
+    .entries(repos_nazareno)
+      </code></pre>
+      <p>
+        Caso você precise transformar o resultado em um objeto, por exemplo para
+        fazer um desses por programador:
+      </p>
+      <pre><code>
+  d3.nest()
+    .key(d => d.language)
+    .rollup(v => d3.mean(v, d => d.watchers))
+    .object(repos_nazareno)
+      </code></pre>
+
+      <br>
+      <p>
+        As chaves podem ser o que quisermos:
+      </p>
+      <pre><code>
+  // pela media de algo (popularidade por linguagem)
+  d3.nest()
+    .key(d => d.created_at.split("-")[0])
+    .key(d => d.language)
+    .rollup(v => v.length)
+    .object(repos_nazareno)
+      </code></pre>
+    </div>
+  </div>
+</div>
