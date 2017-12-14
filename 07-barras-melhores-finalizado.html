@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Barras simples</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h2>Barras melhores</h2>
+      </div>
+      <div class="row">
+        <p>
+           Esse é um gráfico de barras vertical mais sofisticado um pouco. Para entender bem o que está acontecendo aqui, você precisa:
+           <ol>
+            <li>Estar bem familiarizado com sintaxe a javascript. Pelo menos a parte 1 e 2 <a href="x01-dicas-javascript.js">desses exemplos</a></li>
+            <li>Entender escalas d3. Colocamos uma explicação <a href="x02-escalas-d3.js">nesse outro arquivo</a></li>
+            <li>Entender elementos g e pra que eles servem, como explicamos <a href="x03-detalhes-svg.html">nesse terceiro arquivo</a></li>
+           </ol>
+        </p>
+      </div>
+      <div class="row">
+        <h3>A visualização em si:</h3>
+        <br>
+        <div class="row mychart" id="chart">
+      </div>
+      </div>
+    </div>
+
+    <style>
+      .mychart rect {
+        fill: steelblue;
+      }
+
+      .mychart rect:hover {
+        fill: goldenrod;
+      }
+
+      .mychart text {
+        font: 12px sans-serif;
+        text-anchor: left;
+        color: black;
+      }
+    </style>
+
+    <script type="text/javascript">
+      "use strict"
+      var dados = [ // essa é uma lista de objetos json
+        {'letra': 'A', 'valor': 12},
+        {'letra': 'B', 'valor': 53},
+        {'letra': 'C', 'valor': 62},
+        {'letra': 'D', 'valor': 40},
+        {'letra': 'E', 'valor': 35},
+        {'letra': 'F', 'valor': 11},
+        {'letra': 'G', 'valor': 22}
+      ] // essas são frequências relativas dessas letras em inglês.
+
+      // definicoes de altura e largura do svg e da vis dentro
+      var alturaSVG = 400, larguraSVG = 900;
+      var	margin = {top: 10, right: 20, bottom:30, left: 45}, // para descolar a vis das bordas do grafico
+          larguraVis = larguraSVG - margin.left - margin.right,
+          alturaVis = alturaSVG - margin.top - margin.bottom;
+
+      /*
+       * Prepara onde adicionaremos a visualizacao
+       */
+      var grafico = d3.select('#chart') // cria elemento <svg> com um <g> dentro
+        .append('svg')
+          .attr('width', larguraVis + margin.left + margin.right)
+          .attr('height', alturaVis + margin.top + margin.bottom)
+        .append('g') // para entender o <g> vá em x03-detalhes-svg.html
+          .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')');
+
+      /*
+       * As escalas
+       */
+      var x = d3.scaleBand()
+                  .domain(dados.map(d => d.letra))
+                  .rangeRound([0, larguraVis])
+                  .padding(.1);
+
+      var y = d3.scaleLinear()
+                 .domain([0, d3.max(dados, (d) => d.valor)])
+                 .rangeRound([alturaVis, 0]); // examine como essa escala funciona
+
+      /*
+       * As marcas
+       */
+      grafico.selectAll('g')
+              .data(dados)
+              .enter()
+                .append('rect')
+                  .attr('x', d => x(d.letra))   // usando a escala definida acima
+                  .attr('width', x.bandwidth()) // largura da barra via escala
+                  .attr('y', d => y(d.valor))
+                  .attr('height', (d) => alturaVis - y(d.valor)); // de cabeca para baixo
+
+      /*
+       * Os eixos
+       */
+      grafico.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + alturaVis + ")")
+              .call(d3.axisBottom(x)); // magica do d3: gera eixo a partir da escala
+
+      grafico.append('g')
+              .attr('transform', 'translate(0,0)')
+              .call(d3.axisLeft(y))  // gera eixo a partir da escala
+
+      grafico.append("text")
+        .attr("transform", "translate(-30," + (alturaVis + margin.top)/2 + ") rotate(-90)")
+        .text("Frequencia");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Barras simples</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h2>Alguma interação</h2>
+      </div>
+      <div class="row">
+        <p>
+           Aqui usamos como exemplo uma visualização de dados das unidades acadêmicas do Campus I da UFCG.
+           Os dados vem do portal de transparência do governo federal e do Cursos UFCG. Quando falamos em idade, estamos falando na idade dos professores da UA.
+        </p>
+        <p>
+          O objetivo desse exemplo é demonstrar como alterar os elementos SVG da visualização a partir de botões e sobrevoo (hover) com o mouse.
+        </p>
+      </div>
+      <div class="row">
+        <h3>Unidade Acadêmica</h3>
+        <br>
+        <div class="row mychart" id="chart">
+        <div id="controls" />
+      </div>
+      </div>
+    </div>
+
+    <style>
+      .mychart circle {
+        fill: steelblue;
+      }
+
+      .mychart text {
+        font: 10px sans-serif;
+        text-anchor: middle;
+        color: grey;
+      }
+
+    </style>
+
+    <script type="text/javascript">
+      "use strict"
+
+      function criaVisGeral(){
+        d3.csv("https://raw.githubusercontent.com/nazareno/tamanhos-da-ufcg/master/ufcg_uas_com_matriculas.csv", data => (desenhaVis(data)));
+        function desenhaVis(dadosLidos){
+          dadosLidos = dadosLidos.filter(d => d.CAMPUS == 1)
+
+          // definicoes de altura e largura do svg e da vis dentro
+          var alturaSVG = 700, larguraSVG = 900;
+          var	margin = {top: 30, right: 50, bottom:30, left: 50}, // para descolar a vis das bordas do grafico
+              larguraVis = larguraSVG - margin.left - margin.right,
+              alturaVis = alturaSVG - margin.top - margin.bottom;
+
+          var entreCirculos = 100, circuloInicial = 15;
+
+          /*
+           * Prepara onde adicionaremos a visualizacao
+           */
+          var grafico = d3.select('#chart') // cria elemento <svg> com um <g> dentro
+            .append('svg')
+              .attr('width', larguraVis + margin.left + margin.right)
+              .attr('height', alturaVis + margin.top + margin.bottom)
+            .append('g') // para entender o <g> vá em x03-detalhes-svg.html
+              .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')')
+            .selectAll("g") // dentro do 1o <g>
+            .data(dadosLidos)
+            .enter()
+              .append("g") // Temos um G para cada linha nos dados
+              .attr("class", "depto")
+              .attr("transform", (d,i) => "translate(" +
+                                          (entreCirculos * (i % Math.floor(larguraVis / entreCirculos))) +
+                                          ", " +
+                                          (Math.floor((i * entreCirculos) / larguraVis) * entreCirculos) +
+                                          ")")
+
+          var deptos = d3.selectAll("g.depto")
+
+          deptos
+            .append("circle")
+            .attr("r", circuloInicial)
+
+          deptos
+            .append("text")
+            .attr("y", 30)
+            .attr("x", 0)
+            .text(d => d.UORG_LOTACAO.substring(18, 35))
+
+          /*
+           * Hover
+           */
+          deptos.on("mouseover", mouseNoCirculo);
+          function mouseNoCirculo(d){
+            d3.selectAll("text")
+              .style("font-weight", p => p.UORG_LOTACAO === d.UORG_LOTACAO ? "bold" : "normal");
+          }
+
+          deptos.on("mouseout", mouseSaiuCirculo);
+          function mouseSaiuCirculo(d){
+            d3.selectAll("text")
+              .style("font-weight", "normal");
+          }
+
+
+          /*
+           * Botões para visualizar diferentes atributos dos dados
+           */
+          const dataKeys = Object.keys(dadosLidos[0])
+            .filter(d => d !== "UORG_LOTACAO" && d !== "Outro" && d !== "COD_SETOR" && d !== "CAMPUS")
+
+          d3.select("#controls").selectAll("button.teams")
+            .data(dataKeys)
+            .enter()
+              .append("button")
+              .attr("class", "btn-default")
+              .on("click", botaoClicado)
+              .html(d => d);
+
+          function botaoClicado(dimensao) {
+            var maxValue = d3.max(dadosLidos, d => parseFloat(d[dimensao]))
+            var radiusScale = d3.scaleLinear()
+                            .domain([ 0, maxValue ])
+                            .range([ 2, 25 ])
+            var colorScale = d3.scaleQuantize()
+                               .domain([ 0, maxValue ])
+                               .range(colorbrewer.Reds[5])
+            d3.selectAll("g.depto")
+              .select("circle")
+              //.transition().duration(700) // descomente aqui para testar
+              .attr("r", d => radiusScale(d[dimensao]))
+              .style("fill", d => colorScale(d[dimensao]))
+          }
+        }
+      }
+
+      criaVisGeral()
+    </script>
+  </body>
+</html>
