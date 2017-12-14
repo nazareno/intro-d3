@@ -5,6 +5,10 @@
   <title>Manipulando dados com d3.js</title>
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <div class="container">
@@ -29,7 +33,7 @@
         Primeiro leia o dado. Ele só está lido quando o console imprimir "foi".
         Estamos usando os eventos na atividade recente de nazareno no github.
       </p>
-      <pre><code>
+      <pre><code class="javascript">
   "use strict"
 
   // ler os dados
@@ -47,7 +51,7 @@
         A forma JS de responder isso é gerando um objeto aninhado e
         operando nele. Objeto aninhado é isso:
       </p>
-      <pre><code>
+      <pre><code class="javascript">
   d3.nest()               // nest -> queremos gerar um objeto aninhado
     .key(d => d.type)     // key  -> a chave será o atributo type de cada objeto
     .entries(gh_nazareno)      // entries -> a lista de objetos será essa
@@ -69,7 +73,7 @@
       <p>
         Para sumarizar por grupo agora:
       </p>
-      <pre><code>
+      <pre><code class="javascript">
   // pelo comprimento
   d3.nest()
     .key(d => d.type)
@@ -86,7 +90,7 @@
         Caso você precise transformar o resultado em um objeto, por exemplo para
         fazer um desses por programador:
       </p>
-      <pre><code>
+      <pre><code class="javascript">
   d3.nest()
     .key(d => d.language)
     .rollup(v => d3.mean(v, d => d.watchers))
@@ -97,13 +101,25 @@
       <p>
         As chaves podem ser o que quisermos:
       </p>
-      <pre><code>
+      <pre><code class="javascript">
   // pela media de algo (popularidade por linguagem)
   d3.nest()
-    .key(d => d.created_at.split("-")[0])
+    .key(d => d.created_at.split("-")[0]) // pega o ano
     .key(d => d.language)
     .rollup(v => v.length)
     .object(repos_nazareno)
+      </code></pre>
+      <br>
+      <br>
+      <p>
+        Bônus: filtrado e ordenado.
+      </p>
+      <pre><code class="javascript">
+      d3.nest()
+        .key(d => d.created_at.split("-")[0]) // pega o ano
+        .rollup(v => v.length)
+        .entries(repos_nazareno.filter(d => d.language === "R"))
+        .sort((a,b) => b.value - a.value)
       </code></pre>
     </div>
   </div>
