@@ -2,31 +2,43 @@
 <html lang="pt-br">
   <head>
     <meta charset="utf-8">
-    <title>Barras simples</title>
+    <title>Barras mais interativas</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        <h2>Alguma interação</h2>
+      <div class="col-md-8">
+        <div class="row">
+          <h2>Mais interação</h2>
+        </div>
+        <div class="row">
+          <p>
+             Para mudar as marcas, mudamos seus atributos. As mudanças ficam mais
+             legíveis se o leitor conseguir acompanhá-las.
+          </p>
+          <p>
+            Faça uma autópsia do código abaixo, entenda as parte se faça com que ele:
+            <ol>
+              <li>Destaque a barra no hover</li>
+              <li>Adicione uma escala de cores que mude também com a dimensão escolhida</li>
+              <li>Reordene retângulos e texto ao mudarmos a dimensão</li>
+            <ol>
+          </p>
+        </div>
+        <div class="row">
+          <h3>Unidade Acadêmica</h3>
+          <br>
+          <div class="row mychart" id="chart">
+            <div id="controls" />
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <p>
-           Para reordenar os pontos, é preciso redesenhá-los.
-        </p>
-        <p>
-          O objetivo desse exemplo é demonstrar como alterar os elementos SVG da visualização a partir de botões e sobrevoo (hover) com o mouse.
-        </p>
-      </div>
-      <div class="row">
-        <h3>Unidade Acadêmica</h3>
-        <br>
-        <div class="row mychart" id="chart">
-        <div id="controls" />
-      </div>
-      </div>
+      <div id="tooltip" class="hidden">
+         <p id="titulo_tooltip"></p>
+			   <p><b id="value">0</b></p>
+		  </div>
     </div>
 
     <style>
@@ -40,6 +52,25 @@
         color: grey;
       }
 
+      #tooltip {
+				position: absolute;
+				width: auto;
+				height: auto;
+				padding: 10px;
+				background-color: #D3F6DB;
+				border-radius: 10px;
+			}
+
+			#tooltip.hidden {
+				display: none;
+			}
+
+			#tooltip p {
+				margin: 0;
+				font-family: sans-serif;
+				font-size: 12px;
+				line-height: 20px;
+			}
     </style>
 
     <script type="text/javascript">
@@ -59,14 +90,13 @@
                       .append('g')
                         .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')')
 
-                        xx = null
-
-      function criaVisGeral(campoParaOrdenar, isRedesenho){
+      function criaVisGeral(){
         d3.csv("https://raw.githubusercontent.com/nazareno/tamanhos-da-ufcg/master/ufcg_uas_com_matriculas.csv",
-               lido => (desenhaVis(lido, campoParaOrdenar, isRedesenho)));
+               lido => (desenhaVis(lido, "Matrículas")));
 
-        function desenhaVis(dados, campoParaOrdenar, isRedesenho){
-          console.log("Criando para " + campoParaOrdenar)
+        function desenhaVis(dados, nomeDaColuna){
+          // Qual dimensão estamos codificando nas colunas?
+          var dimensaoSelecionada = nomeDaColuna;
           dados = dados.filter(d => d.CAMPUS == 1)
                        .map(function(d){
                               return {nome_curto : d.UORG_LOTACAO.substring(18, 40),
@@ -76,7 +106,7 @@
                                       "Servidores tec/adm": +d.Outro
                                       }
                             })
-                       .sort((a, b) => a[campoParaOrdenar] - b[campoParaOrdenar])
+                       .sort((a, b) => a[dimensaoSelecionada] - b[dimensaoSelecionada])
 
           var y = d3.scaleBand()
                      .domain(dados.map(d => d.nome_curto))
@@ -84,22 +114,23 @@
                      .padding(.25);
 
           var escalaLargura = d3.scaleLinear()
-                    .domain([0, d3.max(dados, d => d[campoParaOrdenar])])
+                    .domain([0, d3.max(dados, d => d[dimensaoSelecionada])])
                     .rangeRound([0, larguraMaxBarras]);
 
-          var barras = grafico.selectAll("rect")
-          var textos = grafico.selectAll("text")
-          barras
+          /*
+           * Desenho inicial
+           */
+          grafico.selectAll("rect")
             .data(dados)
             .enter()
             .append("rect")
               .attr("x", larguraTexto)
-              .attr("width", d => escalaLargura(d[campoParaOrdenar]))
+              .attr("width", d => escalaLargura(d[dimensaoSelecionada]))
               .attr("y", d => y(d.nome_curto))
               .attr("height", y.bandwidth())
               .attr("class", "depto")
 
-          textos
+          grafico.selectAll("text")
             .data(dados)
             .enter()
             .append("text")
@@ -107,19 +138,36 @@
             .attr("x", larguraTexto - 10)
             .text(d => d.nome_curto)
 
-          grafico.selectAll("rect").on("mouseover", mouseNoCirculo);
-          function mouseNoCirculo(d){
+          /*
+           * Eventos
+           */
+          grafico.selectAll("rect").on("mouseover", mouseDentro);
+          function mouseDentro(d){
             d3.selectAll("text")
               .style("font-weight",
                       p => p.nome_curto === d.nome_curto ? "bold" : "normal");
+
+            d3.select("#tooltip") // reparou que tem uma div escondida no html?
+  						.style("left", (d3.event.pageX - 50) + "px")
+  						.style("top", d3.event.pageY + "px")
+  						.select("#value")
+  						.text(d[dimensaoSelecionada]);
+            d3.select("#tooltip #titulo_tooltip")
+              .text(dimensaoSelecionada)
+  					// Mostra o tooltip
+  					d3.select("#tooltip").classed("hidden", false);
           }
 
-          grafico.selectAll("rect").on("mouseout", mouseSaiuCirculo);
-          function mouseSaiuCirculo(d){
+          grafico.selectAll("rect").on("mouseout", mouseSaiu);
+          function mouseSaiu(d){
             d3.selectAll("text")
               .style("font-weight", "normal");
+
+            // não precisamos mais de tooltip
+            d3.select("#tooltip").classed("hidden", true);
           }
 
+          // Os botões
           const dataKeys = Object.keys(dados[0])
             .filter(d => d !== "UORG_LOTACAO" && d !== "Outro" && d !== "COD_SETOR" && d !== "CAMPUS" && d !== "nome_curto")
 
@@ -132,27 +180,26 @@
               .html(d => d);
 
           function mudaDimensaoEReordena(dimensao) {
-            dados.sort((a, b) => d3.ascending(a[dimensao], b[dimensao]))
-            y.domain(dados.map(d => d.nome_curto))
+            dimensaoSelecionada = dimensao
+            // necessario para reordenar as barras/nomes
+            // var nomesOrdenados = dados.map(d => d.nome_curto)
+            //                           .sort((a, b) => d3.ascending(a[dimensao], b[dimensao]))
+            // y.domain(nomesOrdenados)
 
             var maxValue = d3.max(dados, d => parseFloat(d[dimensao]))
 
             escalaLargura = escalaLargura.domain([0, maxValue])
 
             grafico.selectAll("rect")
-              .sort((a, b) => b[dimensao] - a[dimensao])
+              //.sort((a, b) => b[dimensao] - a[dimensao]) // necessario na hora de reordenar os retângulos
               .transition().duration(300).delay((d,i) => i * 20)
               .attr("width", d => escalaLargura(d[dimensao]))
 
           }
-
-            // Exercícios:
-            // 1 - Adicione uma escala de cores que mude também com a dimensão escolhida
-            // 2 - Faça com que retângulos e texto se reordenem ao mudarmos a dimensão
         }
       }
 
-      criaVisGeral("Matrículas", false)
+      criaVisGeral()
     </script>
   </body>
 </html>
