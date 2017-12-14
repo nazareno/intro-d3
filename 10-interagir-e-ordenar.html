@@ -182,9 +182,8 @@
           function mudaDimensaoEReordena(dimensao) {
             dimensaoSelecionada = dimensao
             // necessario para reordenar as barras/nomes
-            // var nomesOrdenados = dados.map(d => d.nome_curto)
-            //                           .sort((a, b) => d3.ascending(a[dimensao], b[dimensao]))
-            // y.domain(nomesOrdenados)
+            // var nomesOrdenados = dados.sort((a, b) => d3.ascending(a[dimensao], b[dimensao]))
+            //                           .map(d => d.nome_curto)
 
             var maxValue = d3.max(dados, d => parseFloat(d[dimensao]))
 
