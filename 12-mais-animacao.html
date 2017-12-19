@@ -19,17 +19,18 @@
           </p>
         </div>
         <div class="row">
-          <h3>Unidade Acadêmica</h3>
+          <h3>Disciplinas do CCC ao longo do tempo</h3>
+          <br>
+          <p>
+            Cada círculo é uma disciplina. Seu tamanho é seu número de matriculados
+            naquele ano. A cor mostra o departamento que oferece a disciplina.
+          </p>
           <br>
           <div class="row mychart" id="chart">
-            <div id="controls" />
+            <a id="status">Carregando...</a>
           </div>
         </div>
       </div>
-      <div id="tooltip" class="hidden">
-         <p id="titulo_tooltip"></p>
-			   <p><b id="value">0</b></p>
-		  </div>
     </div>
 
     <style>
@@ -60,8 +61,8 @@
       }
 
       .tooltip_circulo {
-        font: 9px sans-serif;
-        text-anchor: start;
+        font: 8px sans-serif;
+        text-anchor: middle;
         fill: grey;
       }
 

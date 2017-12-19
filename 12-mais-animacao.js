@@ -73,12 +73,12 @@ var update = function(data, svg, scales, year) {
   d3.select(".year").text(year);
 
   // tooltips
-  var textos = svg.selectAll(".tooltip")
-    .data(newData);
+  var textos = svg.selectAll(".tooltip_circulo")
+    .data(newData, d => d.codigo_disciplina);
   textos.enter()
       .append("text")
     .merge(textos)
-      .transition().duration(500).delay((d,i) => i * 30)
+      .transition().duration(500).delay((d,i) => i * 25)
       .attr("x", d => scales.xSca(d.matriculados))
       .attr("y", d => scales.ySca(d.taxa))
       .attr("id", d => d.codigo_disciplina)
@@ -92,6 +92,8 @@ d3.queue()
     .await(function(error, taxas, disciplinas){
   if (error) throw error;
   // console.log(taxas); // original data
+
+  d3.select("#status").remove();
 
   // altera o array taxas
   joinTaxasDisciplinas(taxas, disciplinas)
