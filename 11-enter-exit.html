@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <title>Seleções enter/exit</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="col-md-6">
+      <div class="row">
+        <h2>Seleções e enter/exit</h2>
+      </div>
+      <div class="row">
+        <br>
+        <p>
+          A essa altura você já usou um bocado uma abstração central do d3: seleções.
+          Quando você faz <b>d3.selectAll("text")</b>, por exemplo, você está criando uma seleção
+          d3 que contém todos os elementos <b>text</b> do DOM.
+        </p>
+        <p>
+          Para ligar elementos do DOM e dados, d3 usa outra abstração chamada <b>join</b>.
+        </p>
+        <p>
+          Quando fazemos <b>d3.selectAll("text").data(dados)</b> estamos juntando à seleção
+          uma lista de dados. Se depois fizermos outro join <b>d3.selectAll("text").data(outrosDados)</b>, ele substituirá
+          o primeiro.
+        </p>
+        <p>
+          Nesse exemplo e nos próximos dois, vamos explorar mais como
+          operar sobre o resultado da seleção depois de um join.
+        </p>
+        <p>
+          Temos 3 situações com as quais queremos lidar:
+          <ol>
+            <li>
+              Queremos <b>atualizar</b> os elementos da seleção, que já existem com base nos dados.
+              Nesse caso usamos o conjunto de UPDATE do join, que é o que é retornado a partir do join.
+              <br>
+              Por exemplo, <b>d3.selectAll("text").data(dados).attr("class", "mudada")</b>
+              vai setar todos os elementos da seleção para os quais há dados correspondentes
+              na lista <i>dados</i> com a classe css <i>mudada</i>. No join feito como
+              fizemos, sem especificar nenhuma maneira de mapear dados para elementos, a atualização
+              mapeia cada elemento de <i>dados</i> para cada elemento da seleção pelo índice.
+            </li>
+            <br>
+            <li>
+              Queremos <b>adicionar</b> elementos à seleção com base nos dados.
+              Nesse caso, usamos a seleção ENTER do join:
+              <b>d3.selectAll("text").data(dados).enter().append("text").text(d => d.conteudo)</b>
+              vai adicionar, para cada elemento de <i>dados</i> para o qual não há um elemento
+              correspondente na seleção, um elemento <i>text</i> baseado no elemento de <i>dados</i>.
+            </li>
+            <br>
+            <li>
+            Queremos <b>remover</b> elementos à seleção com base nos dados.
+            Nesse caso, usamos a seleção EXIT do join:
+            <b>d3.selectAll("text").data(dados).exit().remove()</b>
+            vai remover, para cada elemento de <i>dados</i> para o qual não há um elemento
+            correspondente na seleção, o elemento <i>text</i>.
+            </li>
+          </ol>
+        </p>
+        <p>
+          Nesse exemplo, cada vez que você aperta o botão, um subconjunto de A a outra letra do alfabeto
+          é escolhido como novo dado e as seleções de UPDATE, ENTER e EXIT são usadas, uma por vez.
+          No <a href="./11-enter-exit2.html">próximo exemplo de ENTER/EXIT</a> fazemos as alterações mapeando os dados para elementos
+          de uma maneira mais sofisticada.
+        </p>
+      </div>
+      <div class="row">
+        <h3>Na prática</h3>
+        <br>
+        <button class="btn-default" id="botao">
+          Novos dados
+        </button>
+        <svg width="960" height="500"></svg>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    text {
+      font: bold 48px monospace;
+      fill: white;
+    }
+
+    .explicacao {
+      font: 24px monospace;
+      fill: darkgrey;
+    }
+
+    .enter {
+      fill: darkblue;
+    }
+
+    .removing {
+      fill: red;
+    }
+
+    .update {
+      fill: orange;
+    }
+  </style>
+
+  <script>
+    var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+
+    var svg = d3.select("svg"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height"),
+      g = svg.append("g").attr("transform", "translate(0, 50)");
+
+    // display de fato
+    var principal = g.append("g")
+                        .attr("transform", "translate(0, 100)")
+                        .attr("id", "principal");
+
+    // explicação do que está acontecendo
+    var explicacao = g.append("g")
+                        .attr("transform", "translate(0, 0)")
+                        .append("text")
+                        .classed("explicacao", true)
+                        .attr("id", "explicacao");
+
+    var t = d3.transition().duration(500);
+
+    function update(data) {
+      var explicacao = g.select("#explicacao")
+                          .text("Dado agora: " + data)
+
+      // DATA JOIN
+      // Faz o join de data com a seleção d3 do DOM
+      var text = principal.selectAll("text")
+        .data(data);
+
+      // UPDATE
+      // Aplica um estilo nos elementos já existentes
+      text.transition(t)
+        .style("fill", "darkorange");
+
+      // ENTER
+      // Seleção dos elementos que devem ser criados para
+      // que a seleção original passe a ter todos dados do join.
+      text.enter()
+        .append("text")
+          .style("fill", "darkblue")
+          .attr("x", (d, i) => i * 32)
+          .attr("dy", ".35em")
+          .text(d => d)
+
+      // EXIT
+      // Seleção dos elementos que existiam e que não tem mais
+      // dados no join.
+      text.exit()
+        .transition(t)
+        .style("fill", "red")
+        .transition(t)
+        .remove();
+    }
+
+    // The initial display.
+    update(alphabet);
+
+    d3.select("#botao").on("click", function(d){update(alphabet.slice(0, Math.floor(Math.random() * 26)))});
+    // Grab a random sample of letters from the alphabet, in alphabetical order.
+    // d3.interval(function() {
+    //   update(d3.shuffle(alphabet)
+    //     .slice(0, Math.floor(Math.random() * 26))
+    //     .sort());
+    // }, 2500);
+  </script>
+
+</body>
+
+</html>

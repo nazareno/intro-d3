@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <title>Barras mais interativas</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="col-md-8">
+      <div class="row">
+        <h2>Mais interação</h2>
+      </div>
+      <div class="row">
+        <p>
+          Para mudar as marcas, mudamos seus atributos. As mudanças ficam mais legíveis se o leitor conseguir acompanhá-las.
+        </p>
+        <p>
+          Faça uma autópsia do código abaixo, entenda as parte se faça com que ele:
+          <ol>
+            <li>Destaque a barra no hover</li>
+            <li>Adicione uma escala de cores que mude também com a dimensão escolhida</li>
+            <li>Reordene retângulos e texto ao mudarmos a dimensão</li>
+            <ol>
+        </p>
+      </div>
+      <div class="row">
+        <h3>Unidade Acadêmica</h3>
+        <br>
+        <button class="btn-default" id="botao">
+          Novos dados
+        </button>
+        <svg width="960" height="500"></svg>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    text {
+      font: bold 48px monospace;
+      fill: white;
+    }
+
+    .explicacao {
+      font: 24px monospace;
+      fill: darkgrey;
+    }
+
+    .enter {
+      fill: darkblue;
+    }
+
+    .removing {
+      fill: red;
+    }
+
+    .update {
+      fill: orange;
+    }
+  </style>
+
+  <script>
+    var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+
+    var svg = d3.select("svg"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height"),
+      g = svg.append("g").attr("transform", "translate(0, 0)");
+
+    var principal = g.append("g")
+                        .attr("transform", "translate(0, 100)")
+                        .attr("id", "principal");
+
+    var explicacao = g.append("g")
+                        .attr("transform", "translate(0, 50)")
+                        .append("text")
+                        .classed("explicacao", true)
+                        .attr("id", "explicacao");
+
+    var t = d3.transition().duration(500);
+
+    function update(data) {
+      var explicacao = g.select("#explicacao")
+                          .text("Sorteado: " + data)
+
+      // DATA JOIN
+      // Join new data with old elements, if any.
+      var text = principal.selectAll("text")
+        .data(data, d => d);
+
+      // ENTER
+      // Seleção dos elementos que devem ser criados para
+      // que a seleção original passe a ter todos dados do join.
+      text.enter()
+        .append("text")
+          .style("fill", "darkblue")
+          .attr("x", d => alphabet.indexOf(d) * 32)
+          .attr("dy", ".35em")
+          .text(d => d)
+        .merge(text) // MERGE - junta a seleção de ENTER com a de UPDATE
+          .text(d => d)
+          .transition(1000).delay(800)
+          .style("fill", "grey") // aqui alteramos ENTER + UPDATE
+
+      // EXIT
+      // Remove old elements as needed.
+      text.exit()
+        .transition(t)
+        .style("fill", "red")
+        .transition(t)
+        .remove();
+    }
+
+    // The initial display.
+    update(alphabet);
+
+    // botao
+    d3.select("#botao")
+      .on("click", function(d){
+                      var i = Math.floor(Math.random() * 26);
+                      update(alphabet.slice(i, i + Math.floor(Math.random() * (26 - i))));
+                    });
+  </script>
+
+</body>
+
+</html>

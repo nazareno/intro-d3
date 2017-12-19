@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Exemplo mais completo</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-md-8">
+        <div class="row">
+          <h2>Data wrangling e animação</h2>
+        </div>
+        <div class="row">
+          <p>
+             Um exemplo com mais data wrangling e com animação.
+          </p>
+        </div>
+        <div class="row">
+          <h3>Unidade Acadêmica</h3>
+          <br>
+          <div class="row mychart" id="chart">
+            <div id="controls" />
+          </div>
+        </div>
+      </div>
+      <div id="tooltip" class="hidden">
+         <p id="titulo_tooltip"></p>
+			   <p><b id="value">0</b></p>
+		  </div>
+    </div>
+
+    <style>
+      .axis {
+      font-family: "Arial";
+      font-size: 11px;
+      fill: #808080;
+      }
+      .circle {
+        fill-opacity: 0.75;
+        stroke: #c0c0c0;
+      }
+      .domain {
+        stroke: #c0c0c0;
+      }
+      .tick > line {
+        stroke: #c0c0c0;
+      }
+      .year {
+        font-family: "Georgia";
+        font-size: 100px;
+        fill: #d0d0d0;
+      }
+      .mychart text {
+        font: 11px sans-serif;
+        text-anchor: end;
+        color: grey;
+      }
+
+      .tooltip_circulo {
+        font: 9px sans-serif;
+        text-anchor: start;
+        fill: grey;
+      }
+
+			.tooltip_circulo_hidden {
+				display: none;
+			}
+
+    </style>
+
+    <script src="./12-mais-animacao.js"/>
+  </body>
+</html>

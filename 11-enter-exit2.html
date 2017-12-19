@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <title>UPDATE/ENTER/EXIT pt 2</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="col-md-6">
+      <div class="row">
+        <h2>Join com ids</h2>
+      </div>
+      <div class="row">
+        <p>
+          Nesse exemplo, queremos poder mudar as letras para qualquer subconjunto do alfabeto, e
+          não apenas um iniciando em <b>a</b>.
+        </p>
+        <p>
+          Como não estamos sempre atualizando os elementos do 1o ao n-ésimo, é preciso
+          dizer no join de novos dados como o d3 deve decidir se cada elemento já está
+          na seleção ou não.
+        </p>
+        <p>
+          Isso é feito especificando como o d3 deve achar o id de cada elemento dos dados.
+          Essa maneira de achar o id é uma função passada como segundo argumento do join.
+        </p>
+        <br>
+        <p>
+          No nosso <a href="11-enter-exit-merge.html">3o exemplo com joins</a>, veremos uma 4a seleção além de UPDATE, ENTER e EXIT.
+        </p>
+      </div>
+      <div class="row">
+        <h3>Na prática:</h3>
+        <br>
+        <button class="btn-default" id="botao">
+          Novos dados
+        </button>
+        <svg width="960" height="500"></svg>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    text {
+      font: bold 48px monospace;
+      fill: white;
+    }
+
+    .explicacao {
+      font: 24px monospace;
+      fill: darkgrey;
+    }
+
+    .enter {
+      fill: darkblue;
+    }
+
+    .removing {
+      fill: red;
+    }
+
+    .update {
+      fill: orange;
+    }
+  </style>
+
+  <script>
+    var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+
+    var svg = d3.select("svg"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height"),
+      g = svg.append("g").attr("transform", "translate(0, 0)");
+
+    var principal = g.append("g")
+                        .attr("transform", "translate(0, 100)")
+                        .attr("id", "principal");
+
+    var explicacao = g.append("g")
+                        .attr("transform", "translate(0, 50)")
+                        .append("text")
+                        .classed("explicacao", true)
+                        .attr("id", "explicacao");
+
+    var t = d3.transition().duration(500);
+
+    function update(data) {
+      var explicacao = g.select("#explicacao")
+                          .text("Sorteado: " + data)
+
+      // DATA JOIN
+      // Join new data with old elements, if any.
+      var text = principal.selectAll("text")
+        .data(data, d => d); // A chave de união será o próprio d
+                             // SEM CHAVE, d3 USA O ÍNDICE DO ELEMENTO
+
+      // UPDATE
+      // Aplica um estilo nos elementos já existentes
+      text.transition(t)
+        .style("fill", "darkorange");
+
+      // ENTER
+      // Seleção dos elementos que devem ser criados para
+      // que a seleção original passe a ter todos dados do join.
+      text.enter()
+        .append("text")
+          .style("fill", "darkblue")
+          .attr("x", d => alphabet.indexOf(d) * 32)
+          .attr("dy", ".35em")
+          .text(d => d)
+
+      // EXIT
+      // Seleção dos elementos que existiam e que não tem mais
+      // dados no join.
+      text.exit()
+        .transition(t)
+        .style("fill", "red")
+        .transition(t)
+        .remove();
+    }
+
+    // The initial display.
+    update(alphabet);
+
+    // botao
+    d3.select("#botao")
+      .on("click", function(d){
+                      var i = Math.floor(Math.random() * 26);
+                      update(alphabet.slice(i, i + Math.floor(Math.random() * (26 - i))));
+                    });
+
+  </script>
+
+</body>
+
+</html>
