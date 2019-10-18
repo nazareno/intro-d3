@@ -3,41 +3,60 @@
 <head>
   <meta charset="utf-8">
   <title>Guia de viagem</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="guia.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/guia.css">
 </head>
+<body>
+  <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-6">
+            <h1>Guia</h1>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-6">
+            <h2>Para começar</h2>
+            <p>Entenda o que é o DOM. Isso é fundamental.</p>
+            <p>Além de Javascript, outros personagens serão HTML, CSS e SVG. Procure saber o que eles são.</p>
+            <p>Para ver os exemplos, precisaremos de um servidor http. Sugerimos o live-server do node ou o SimpleHTTPServer em python. Tem instruções pros dois no <a href="https://github.com/nazareno/intro-d3/blob/master/README.md">README do repositório dessa introdução</a>.</p>
+          </div>
+        </div>
 
-<div class="container">
-  <div class="row">
-    <h1>Guia</h1>
-  </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <h2>Para começar</h2>
-      <p>Entenda o que é o DOM. Isso é fundamental.</p>
-      <p>Além de Javascript, outros personagens serão HTML, CSS e SVG. Procure saber o que eles são</p>
-      <p>Para ver os exemplos, precisaremos de um servidor http. Sugerimos o live-server do node ou o SimpleHTTPServer em python. Tem
-        instruções pros dois no <a href="https://github.com/nazareno/intro-d3/blob/master/README.md">README do repositório dessa introdução</a>.</p>
-    </div>
-  </div>
+        <div class="row justify-content-center">
+          <div class="col-6">
+            <h2>Vamos aprender!</h2>
 
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <h2>Os exemplos, em ordem</h2>
-      <ul class="list-group">
-        <li class="list-group-item"><a href="01-barras-semjs-semsvg.html">Um gráfico de barras só html, sem SVG nem JS.</a></li>
-        <li class="list-group-item"><a href="02-hello-d3.html">D3.js sem fazer nada demais ainda.</a></li>
-        <li class="list-group-item"><a href="03-dados-e-append.html">D3.js para criar elementos no dom com dados.</a></li>
-        <li class="list-group-item"><a href="04-formas-svg.html">Formas básicas de SVG.</a></li>
-        <li class="list-group-item"><a href="05-estilos-no-svg.html">SVG + CSS.</a></li>
-        <li class="list-group-item"><a href="06-barras-simples.html">Gerando SVG com D3.</a></li>
-        <li class="list-group-item"><a href="07-barras-melhores.html">Melhorando o gráfico de barras</a></li>
-        <li class="list-group-item"><a href="08-carregando-dados.html">Acessando dados fora do js</a></li>
-        <li class="list-group-item"><a href="09-alguma-interacao.html">Um princípio de interação.</a></li>
-        <li class="list-group-item"><a href="10-interagir-e-ordenar.html">Mais interação.</a></li>
-        <li class="list-group-item"><a href="11-enter-exit.html">Para entender adição, alteração e remoção de marcas.</a></li>
-        <li class="list-group-item"><a href="12-mais-animacao.html">Mais animação.</a></li>        
-      </ul>
-    </div>
-  </div>
-</div>
+            <h3>Visualizações sem d3</h3>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="01-barras-semjs-semsvg.html">Um gráfico de barras só com HTML</a></li>
+              <li class="list-group-item"><a href="01-barras-semjs-semsvg.html">Um gráfico de barras com SVG</a></li>
+              <li class="list-group-item"><a href="04-formas-svg.html">Formas básicas de SVG</a></li>
+              <li class="list-group-item"><a href="05-estilos-no-svg.html">SVG + CSS</a></li>
+            </ul>
+
+            <h3>d3 sem visualizações</h3>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="paginas/hello-d3.html">Manipulando o DOM</a></li>
+              <li class="list-group-item"><a href="paginas/pegando-dados.html">Pegando os dados</a></li>
+              <li class="list-group-item"><a href="08-carregando-dados.html">Acessando dados fora do js</a></li>
+              <li class="list-group-item"><a href="paginas/pegando-dados.html">Mexendo nos dados</a></li>
+              <li class="list-group-item"><a href="paginas/dados-e-append.html">Criando elementos no DOM com dados</a></li>
+            </ul>
+
+            <h3>O casamento de d3 e SVG</h3>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="06-barras-simples.html">Gerando SVG com D3.</a></li>
+              <li class="list-group-item"><a href="07-barras-melhores.html">Melhorando o gráfico de barras</a></li>
+            </ul>
+
+            <h3>Vamos animar!</h3>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="09-alguma-interacao.html">Um princípio de interação.</a></li>
+              <li class="list-group-item"><a href="10-interagir-e-ordenar.html">Mais interação.</a></li>
+              <li class="list-group-item"><a href="11-enter-exit.html">Para entender adição, alteração e remoção de marcas.</a></li>
+              <li class="list-group-item"><a href="12-mais-animacao.html">Mais animação.</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+</body>
