@@ -1,0 +1,22 @@
+
+text {
+  font: bold 20px monospace;
+  fill: white;
+}
+
+.explicacao {
+  font: 18px monospace;
+  fill: darkgrey;
+}
+
+.enter {
+  fill: darkblue;
+}
+
+.removing {
+  fill: red;
+}
+
+.update {
+  fill: orange;
+}

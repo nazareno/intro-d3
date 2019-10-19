@@ -1,58 +1,70 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <!-- Tags básicas -->
+    <title>Carregando dados</title>
+    <meta charset="utf-8">
 
-<head>
-  <meta charset="utf-8">
-  <title>Barras simples</title>
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
+    <!-- Carregando fontes -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto:300&display=swap" rel="stylesheet">
 
-<body>
-  <div class="container">
-    <div class="row">
-      <h2>Barras com dados findos de uma url</h2>
+    <!-- Carregando estilos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/guia.css">
+
+    <!-- Carregando bibliotecas -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+          <h2>Carregando dados</h2>
+          <p>
+            O poder de d3 está em manipular dados em páginas HTML. Afinal, é por isso que a biblioteca se chama Data-Driven Documents.
+          </p>
+
+          <h3>JSON, CSV, TSV</h3>
+          <p>Você pode carregar os tipos de arquivo mais comuns com d3.</p>
+          <p>Cada tipo contém uma função com seu nome correspondente. Por exemplo, se você quiser carregar um CSV, basta usar a seguinte sintaxe:</p>
+          <pre>d3.csv(URL)
+  .then(dados => {
+    // O que fazer com os dados
+  })</pre>
+          <p><b>Importante:</b> Os arquivos são carregados de forma assíncrona!</p>
+          <p>Na pasta de dados existe um arquivo JSON com uma lista de frutas. Que tal a gente carregá-la aqui?</p>
+          <div class="highlight">
+            A primeira fruta da lista é <span id="fruta-secreta"></span>.
+          </div>
+
+          <h3>Carregando arquivos externos</h3>
+          <p>Você também pode carregar dados que não estão salvos no mesmo domínio.</p>
+          <p>Tente carregar dados de clima do site <code>https://www.metaweather.com/</code> por meio de sua API.</p>
+          <div class="highlight">
+            Vamos ver como está o clima no Rio de Janeiro agora: <span id="clima"></span>.
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="row mychart" id="chart">
-    </div>
-  </div>
 
-  <style>
-    .mychart rect {
-      fill: steelblue;
-    }
+    <script type="text/javascript">
+      // Lembre que cada tipo de arquivo tem sua própria função correspondente
+      d3.csv('/dados/frutas.json')
+        .then(frutas => {
+          console.log('os dados foram carregados') // me apague quando entender.
+          d3.select('#fruta-secreta')
+            .datum(frutas[0]) // Liga #fruta-secreta ao primeiro elemento do array frutas
+            .text(d => d.nome)
+            .style('color', d => d.cor)
+      })
+      console.log('provavelmente acontece primeiro') // me apague quando entender.
 
-    .mychart rect:hover {
-      fill: goldenrod;
-    }
-
-    .mychart text {
-      font: 12px sans-serif;
-      text-anchor: left;
-    }
-  </style>
-
-  <script type="text/javascript">
-    "use strict"
-
-    function desenhaBarras(dados) {
-      // Preencha aqui.
-    }
-
-    d3.tsv('dados/alphabet.tsv', function(dados) {
-      console.log("provavelmente acontece depois")
-      desenhaBarras(dados);
-    });
-
-    console.log("provavelmente acontece primeiro") // me apague quando entender.
-
-    /*
-    * Assim como a função d3.tsv, existe a d3.csv e a d3.json
-    * Em todas, o primeiro parâmetro é uma URL e o segundo a função que
-    * será executada quando o dado for obtido.
-    * >>>>> A chamada ao d3.tsv é assíncrona <<<<<<
-    */
-  </script>
-</body>
-
+      // O app https://cors-anywhere.herokuapp.com/ pode te ajudar sempre que você tiver um erro de CORS
+      d3.json('https://www.metaweather.com/api/location/455825/') // Não tinha dados de CG :/
+        .then(dados => {
+          d3.select('#clima')
+            .text(`${dados.consolidated_weather[0].the_temp}°C`)
+        })
+    </script>
+  </body>
 </html>

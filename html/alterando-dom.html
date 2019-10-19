@@ -26,16 +26,19 @@
           </p>
 
           <h3>Consertando o código</h3>
+          <p>Para manipular um elemento do DOM, primeiro precisamos selecioná-lo com a função <code>select('[elemento]')</code>. Edite esse código para fazê-lo funcionar.</p>
 
-          <!-- Esse texto deveria mudar dinamicamente -->
-          <p id="textao">
-            Esse deveria ser outro texto.
-          </p>
+          <div class="highlight">
+            <!-- Esse texto deveria mudar dinamicamente -->
+            <p id="textao">
+              Esse deveria ser outro texto.
+            </p>
 
-          <!-- Esse texto deveria mudar de cor -->
-          <p id="texto-colorido">
-            Esse texto deveria ser vermelho.
-          </p>
+            <!-- Esse texto deveria mudar de cor -->
+            <p id="texto-colorido">
+              Esse texto deveria ser vermelho.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -45,7 +48,7 @@
       // Dica: está faltando carregar a biblioteca d3.
       // No site da biblioteca tem o link para a versão 5: https://d3js.org/
 
-      let textao = d3.select('#textao')
+      const textao = d3.select('#textao')
       textao
         .text('Um parágrafo de textão dizendo várias coisas para o mundo em itálico.')
         .style('font-style', 'italic')

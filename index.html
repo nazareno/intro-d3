@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 
 <head>
-  <meta charset="utf-8">
+  <!-- Tags básicas -->
   <title>Guia de viagem</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta charset="utf-8">
+
+  <!-- Carregando fontes -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto:300&display=swap" rel="stylesheet">
+
+  <!-- Carregando estilos -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/guia.css">
+
+  <!-- Carregando bibliotecas -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 <body>
   <div class="container mb-4">
@@ -29,35 +38,32 @@
 
             <h3>d3 sem visualizações</h3>
             <ul class="list-group">
-              <li class="list-group-item"><a href="html/alterando-dom.html">Alterando o DOM</a></li>
-              <li class="list-group-item"><a href="html/pegando-dados.html">Pegando os dados</a></li>
-              <li class="list-group-item"><a href="html/carregando-dados.html">Acessando dados fora do js</a></li>
-              <li class="list-group-item"><a href="html/pegando-dados.html">Mexendo nos dados</a></li>
-              <li class="list-group-item"><a href="html/dados-e-append.html">Criando elementos no DOM com dados</a></li>
-              <li class="list-group-item"><a href="html/enter-exit.html">Para entender adição, alteração e remoção de marcas</a></li>
-              <li class="list-group-item"><a href="html/join.html">Para entender join</a></li>
+              <li class="list-group-item"><a href="html/alterando-dom.html"><i class="fa fa-book"></i> Alterando o DOM</a></li>
+              <li class="list-group-item"><a href="html/carregando-dados.html"><i class="fa fa-book"></i> Carregando dados</a></li>
+              <li class="list-group-item"><a href="html/dados-e-append.html"><i class="fa fa-book"></i> Injetando elementos no DOM</a></li>
+              <li class="list-group-item"><a href="html/enter-exit.html"><i class="fa fa-book"></i> Adição, alteração e remoção de marcas</a></li>
             </ul>
 
             <h3>Visualizações sem d3</h3>
             <ul class="list-group">
-              <li class="list-group-item"><a href="html/barras-semjs-semsvg.html">Um gráfico de barras só em HTML</a></li>
-              <li class="list-group-item"><a href="html/barras-semjs-semsvg.html">Um gráfico de barras em SVG</a></li>
-              <li class="list-group-item"><a href="html/formas-svg.html">Formas básicas de SVG</a></li>
-              <li class="list-group-item"><a href="html/estilos-no-svg.html">SVG + CSS</a></li>
+              <li class="list-group-item"><a href="html/barras-semjs-semsvg.html"><i class="fa fa-book"></i> Um gráfico de barras só em HTML</a></li>
+              <li class="list-group-item"><a href="html/barras-semjs-semsvg.html"><i class="fa fa-book"></i> Um gráfico de barras em SVG</a></li>
+              <li class="list-group-item"><a href="html/formas-svg.html"><i class="fa fa-book"></i> Formas básicas de SVG</a></li>
+              <li class="list-group-item"><a href="html/estilos-no-svg.html"><i class="fa fa-book"></i> SVG + CSS</a></li>
             </ul>
 
             <h3>O casamento de d3 e SVG</h3>
             <ul class="list-group">
-              <li class="list-group-item"><a href="html/barras-simples.html">Barras minimalistas</a></li>
-              <li class="list-group-item"><a href="https://observablehq.com/@d3/introduction-to-d3s-scales?collection=@d3/d3-scale">Introduzindo escalas</a></li>
-              <li class="list-group-item"><a href="html/barras-melhores.html">Melhorando o gráfico de barras</a></li>
+              <li class="list-group-item"><a href="html/barras-simples.html"><i class="fa fa-book"></i> Barras minimalistas</a></li>
+              <li class="list-group-item"><a href="https://observablehq.com/@d3/introduction-to-d3s-scales?collection=@d3/d3-scale"><i class="fa fa-book"></i> Introduzindo escalas</a></li>
+              <li class="list-group-item"><a href="html/barras-melhores.html"><i class="fa fa-book"></i> Melhorando o gráfico de barras</a></li>
             </ul>
 
             <h3>Vamos animar!</h3>
             <ul class="list-group">
-              <li class="list-group-item"><a href="html/alguma-interacao.html">Um princípio de interação</a></li>
-              <li class="list-group-item"><a href="html/interagir-e-ordenar.html">Mais interação</a></li>
-              <li class="list-group-item"><a href="html/mais-animacao.html">Mais animação</a></li>
+              <li class="list-group-item"><a href="html/alguma-interacao.html"><i class="fa fa-book"></i> Um princípio de interação</a></li>
+              <li class="list-group-item"><a href="html/interagir-e-ordenar.html"><i class="fa fa-book"></i> Mais interação</a></li>
+              <li class="list-group-item"><a href="html/mais-animacao.html"><i class="fa fa-book"></i> Mais animação</a></li>
             </ul>
           </div>
         </div>
