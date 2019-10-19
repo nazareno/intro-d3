@@ -30,3 +30,7 @@ h3 { color: #111;
 body {
   font-family: Roboto, sans-serif;
 }
+
+.row {
+  justify-content: center;
+}

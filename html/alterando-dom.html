@@ -2,7 +2,7 @@
 <html lang="pt-br">
   <head>
     <!-- Tags básicas -->
-    <title>Olá, d3</title>
+    <title>Alterando o DOM</title>
     <meta charset="utf-8">
 
     <!-- Carregando fontes -->
@@ -13,18 +13,19 @@
     <link rel="stylesheet" href="/css/guia.css">
 
     <!-- Falta alguma coisa aqui -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
   </head>
 
   <body>
     <div class="container">
       <div class="row">
-        <div class="col">
-          <h2>Olá, d3</h2>
+        <div class="col-8">
+          <h2>Alterando o DOM</h2>
           <p id="textao">
             Texto qualquer.
           </p>
           <p id="explicacao">
-            Mas página sem funcionar. Conserte aí.
+            A página não tá funcionando. Conserte aí.
           </p>
         </div>
       </div>
@@ -35,7 +36,7 @@
       // Dica: está faltando carregar a biblioteca d3.
       // No site da biblioteca tem o link para a versão 5: https://d3js.org/
       d3.select("#textao")
-        .text("Um parágrafo de textão dizendo várias coisas para o mundo")
+        .text("Um parágrafo de textão dizendo várias coisas para o mundo.")
         .style("color", "red")
       // Use o mesmo princípio para mudar o parágrafo da explicação.
     </script>
