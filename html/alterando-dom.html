@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/guia.css">
 
     <!-- Falta alguma coisa aqui -->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+
   </head>
 
   <body>
@@ -21,11 +21,20 @@
       <div class="row">
         <div class="col-8">
           <h2>Alterando o DOM</h2>
-          <p id="textao">
-            Texto qualquer.
+          <p>
+            d3 não é apenas uma biblioteca para criar visualizações. Ela serve para manipular a estrutura de uma página HTML de acordo com dados.
           </p>
-          <p id="explicacao">
-            A página não tá funcionando. Conserte aí.
+
+          <h3>Consertando o código</h3>
+
+          <!-- Esse texto deveria mudar dinamicamente -->
+          <p id="textao">
+            Esse deveria ser outro texto.
+          </p>
+
+          <!-- Esse texto deveria mudar de cor -->
+          <p id="texto-colorido">
+            Esse texto deveria ser vermelho.
           </p>
         </div>
       </div>
@@ -35,10 +44,16 @@
       console.log(d3.version);
       // Dica: está faltando carregar a biblioteca d3.
       // No site da biblioteca tem o link para a versão 5: https://d3js.org/
-      d3.select("#textao")
-        .text("Um parágrafo de textão dizendo várias coisas para o mundo.")
-        .style("color", "red")
-      // Use o mesmo princípio para mudar o parágrafo da explicação.
+
+      let textao = d3.select('#textao')
+      textao
+        .text('Um parágrafo de textão dizendo várias coisas para o mundo em itálico.')
+        .style('font-style', 'italic')
+
+      // Tem algo faltando aqui
+
+      textoColorido
+        .style('color', 'red')
     </script>
   </body>
 </html>
