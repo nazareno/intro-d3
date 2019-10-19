@@ -83,7 +83,7 @@
 
           <h3>Na prática</h3>
           <input type="button" id="botao" class="btn btn-primary mt-2" value="Novos dados">
-          <svg width="960" height="150"></svg>
+          <svg></svg>
 
           <h3>Próximos passos</h3>
           <p>
@@ -96,30 +96,31 @@
     <script>
       let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
-      const svg = d3.select('svg'),
-        width = +svg.attr('width'),
-        height = +svg.attr('height'),
-        g = svg.append('g').attr('transform', 'translate(0, 50)')
+      const svg = d3.select('svg')
+        .attr('width', 960)
+        .attr('height', 130)
+
+      const g = svg.append('g')
+        .attr('transform', 'translate(0, 50)') // Cria um grupo e o move 50px para baixo
 
       // display de fato
       const principal = g.append('g')
-                          .attr('transform', 'translate(0, 30)')
-                          .attr('id', 'principal')
+        .attr('id', 'principal')
 
       // explicação do que está acontecendo
       const explicacao = g.append('g')
-                          .attr('transform', 'translate(0, 0)')
-                          .append('text')
-                          .classed('explicacao', true)
-                          .attr('id', 'explicacao')
+        .attr('transform', 'translate(0, 30)')
+        .append('text')
+          .classed('explicacao', true)
+          .attr('id', 'explicacao')
 
-      const t = d3.transition().duration(500)
+      const t = d3.transition()
+        .duration(500)
 
       function update(dados) {
-        const explicacao = g.select('#explicacao')
-                            .text('Dado agora: ' + dados)
+        explicacao.text(`Dado agora: ${dados}`)
 
-        // DATA JOIN
+        // JOIN
         // Faz o join de dados com a seleção d3 do DOM
         const text = principal.selectAll('text')
           .data(dados)
@@ -127,14 +128,14 @@
         // UPDATE
         // Aplica um estilo nos elementos já existentes
         text.transition(t)
-          .style('fill', 'darkorange')
+          .style('fill', 'gray')
 
         // ENTER
         // Seleção dos elementos que devem ser criados para
         // que a seleção original passe a ter todos dados do join.
         text.enter()
           .append('text')
-            .style('fill', 'darkblue')
+            .style('fill', 'green')
             .attr('x', (d, i) => i * 32)
             .attr('dy', '.35em')
             .text(d => d)
