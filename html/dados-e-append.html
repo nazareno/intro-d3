@@ -29,10 +29,8 @@
           <p>Será que você consegue mostrar todas as frutas do JSON de frutas?</p>
           <ul class="highlight pl-4" id="dos-dados"></ul>
 
-          <h3>Se quiser entender melhor</h3>
-          <p>Leia a <a href="https://github.com/d3/d3-selection" target="
-
-          ">documentação</a> do <code>d3-selection</code>.</p>
+          <h3>Para entender melhor</h3>
+          <p>Leia a <a href="https://github.com/d3/d3-selection" target="_blank">documentação</a> do <code>d3-selection</code>.</p>
         </div>
       </div>
     </div>
@@ -59,8 +57,8 @@
             .data(dados) // Ligamos os elementos <li> aos elementos do JSON frutas.json
             .enter() // Criamos elementos <li> de acordo com a quantidade de elementos do json
             .append('li') // Inserimos os <li> na lista HTML com ID #dos-dados
-            .text(elemento => elemento.nome)
-            .style('color', elemento => elemento.cor)
+              .text(elemento => elemento.nome)
+              .style('color', elemento => elemento.cor)
         })
     </script>
   </body>
