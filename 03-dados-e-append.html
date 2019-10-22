@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8">
-    <title>Dados em parágrafos</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-  </head>
-  <body>
 
-    <div class="container">
-      <div class="row">
-        <h3>Dados no DOM</h3>
-      </div>
-      <div class="row" id="pros_dados">
-      </div>
+<head>
+  <meta charset="utf-8">
+  <title>Dados em parágrafos</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <h3>Dados no DOM</h3>
     </div>
+    <div class="row" id="pros_dados">
+    </div>
+  </div>
 
-<!-- PARTE 1: select + append  -->
-    <script type="text/javascript">
-      d3.select('.row') // .xpto == elemento da classe xpto
+  <!-- PARTE 1: select + append  -->
+  <script type="text/javascript">
+    d3.select('.row') // .xpto == elemento da classe xpto
       .append('p')
       .text('Sou um parágrafo recém-criado!');
-    </script>
+  </script>
 
-<!-- PARTE 2: dados -->
-<!--     <script type="text/javascript">
-      var dados = [2, 3, 5, 7, 11, 13, 17];
-      d3.select("#pros_dados") // #xpto == elemento com id xpto
-        .selectAll("p")
+  <!-- PARTE 2: dados-->
+
+  <script type="text/javascript">
+    // Coleção de dados que queremos utilizar para manipular a DOM
+    const dados = [2, 3, 5, 7, 11, 13, 17]; 
+    
+    // Para selecionar um elemento na DOM, podemos utilizar
+    // "#<id>" para recuperar esse elemento através do seu id. 
+    d3.select("#pros_dados") // #pros_dados == elemento com id "pros_dados"
+      // A seguir, é pesquisado por todas as tags <p> que estão dentro de 
+      // #pros_dados
+      .selectAll("p")
       .data(dados)
       .enter()
-        .append("p")
-        .text("Parágrafo criado a partir dos dados.") -->
-    </script>
-  </body>
+      .append("p")
+      // Ao chamar "append", o D3 irá adicionar tags <p> para os valores
+      // que ainda não estão atrelados a uma tag <p>, ou seja, se não
+      // existir tag <p> para cada um dos itens do array de dados, ele
+      // criará para os dados faltantes.
+      .text(dado => "Parágrafo criado a partir do dado: " + dado)
+  </script>
+</body>
+
 </html>
