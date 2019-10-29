@@ -41,7 +41,7 @@
           <p>Você também pode carregar dados que não estão salvos no mesmo domínio.</p>
           <p>Tente carregar dados de clima do site <code>https://www.metaweather.com/</code> por meio de sua API.</p>
           <div class="highlight">
-            Vamos ver como está o clima no Rio de Janeiro agora: <span id="clima"></span>.
+            Vamos ver como está o clima em Salvador agora: <span id="clima"></span>.
           </div>
         </div>
       </div>
@@ -49,9 +49,10 @@
 
     <script type="text/javascript">
       // Lembre que cada tipo de arquivo tem sua própria função correspondente
-      d3.csv('/dados/frutas.json')
+      d3.json('../dados/frutas.json')
         .then(frutas => {
           console.log('os dados foram carregados') // me apague quando entender.
+          console.log(frutas)
           d3.select('#fruta-secreta')
             .datum(frutas[0]) // Liga #fruta-secreta ao primeiro elemento do array frutas
             .text(d => d.nome)
@@ -60,7 +61,7 @@
       console.log('provavelmente acontece primeiro') // me apague quando entender.
 
       // O app https://cors-anywhere.herokuapp.com/ pode te ajudar sempre que você tiver um erro de CORS
-      d3.json('https://www.metaweather.com/api/location/455825/') // Não tinha dados de CG :/
+      d3.json('https://www.metaweather.com/api/location/455826/') // Não tinha dados de CG :/
         .then(dados => {
           d3.select('#clima')
             .text(`${dados.consolidated_weather[0].the_temp}°C`)
