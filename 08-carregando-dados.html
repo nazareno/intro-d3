@@ -39,6 +39,10 @@
       // Preencha aqui.
     }
 
+    // O d3 tem 3 funções principais para carregamento de dados:
+    // .tsv() responsável por carregar arquivos tsv
+    // .csv() responsável por carregar arquivos csv
+    // .json() responsável por carregar arquivos Json
     d3.tsv('dados/alphabet.tsv', function(dados) {
       console.log("provavelmente acontece depois")
       desenhaBarras(dados);
