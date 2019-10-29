@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <!-- Tags básicas -->
+    <title>Alterando o DOM</title>
+    <meta charset="utf-8">
+
+    <!-- Carregando fontes -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto:300&display=swap" rel="stylesheet">
+
+    <!-- Carregando estilos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/guia.css">
+
+    <!-- Falta alguma coisa aqui -->
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+          <h2>Alterando o DOM</h2>
+          <p>
+            d3 não é apenas uma biblioteca para criar visualizações. Ela serve para manipular a estrutura de uma página HTML de acordo com dados.
+          </p>
+
+          <h3>Consertando o código</h3>
+          <p>Para manipular um elemento do DOM, primeiro precisamos selecioná-lo com a função <code>select('[elemento]')</code>. Edite esse código para fazê-lo funcionar.</p>
+
+          <div class="highlight">
+            <!-- Esse texto deveria mudar dinamicamente -->
+            <p id="textao">
+              Esse deveria ser outro texto.
+            </p>
+
+            <!-- Esse texto deveria mudar de cor -->
+            <p id="texto-colorido">
+              Esse texto deveria ser vermelho.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      console.log(d3.version);
+      // Dica: está faltando carregar a biblioteca d3.
+      // No site da biblioteca tem o link para a versão 5: https://d3js.org/
+
+      const textao = d3.select('#textao')
+
+      textao.text('Um parágrafo de textão dizendo várias coisas para o mundo em itálico.')
+        .style('font-style', 'italic')
+
+      // Tem algo faltando aqui
+
+      textoColorido.style('color', 'red')
+    </script>
+  </body>
+</html>

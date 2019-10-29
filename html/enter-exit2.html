@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+  <head>
+    <!-- Tags básicas -->
+    <title>Adição, alteração e remoção de marcas: parte 2</title>
+    <meta charset="utf-8">
+
+    <!-- Carregando fontes -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto:300&display=swap" rel="stylesheet">
+
+    <!-- Carregando estilos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/guia.css">
+    <link rel="stylesheet" href="/css/alphabet.css">
+
+    <!-- Carregando bibliotecas -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
+
+    <meta charset="utf-8">
+    <title>Seleções enter/exit</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+          <h2>Adição, alteração e remoção de marcas: parte 2</h2>
+          <p>
+            Nesse exemplo, queremos poder mudar as letras para qualquer subconjunto do alfabeto, e
+            não apenas um iniciando em <kbd>a</kbd>.
+          </p>
+          <p>
+            Como não estamos sempre atualizando os elementos do 1o ao n-ésimo, é preciso
+            dizer no join de novos dados como o d3 deve decidir se cada elemento já está
+            na seleção ou não.
+          </p>
+          <p>
+            Isso é feito especificando como o d3 deve achar o id de cada elemento dos dados.
+            Essa maneira de achar o id é uma função passada como segundo argumento do join.
+          </p>
+
+          <h3>Na prática</h3>
+          <input type="button" id="botao" class="btn btn-primary mt-2" value="Novos dados">
+          <svg></svg>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
+
+    const svg = d3.select('svg')
+      .attr('width', 960)
+      .attr('height', 130)
+
+    const g = svg.append('g')
+      .attr('transform', 'translate(0, 50)')
+
+    const principal = g.append('g')
+      .attr('id', 'principal')
+
+    const explicacao = g.append('g')
+      .attr('transform', 'translate(0, 30)')
+      .append('text')
+        .attr('class', 'explicacao')
+        .attr('id', 'explicacao')
+
+    const t = d3.transition()
+      .duration(500)
+
+    function update(data) {
+      explicacao.text(`Sorteado: ${data}`)
+
+      // JOIN
+      // Join new data with old elements, if any.
+      const text = principal.selectAll('text')
+        .data(data, d => d) // A chave de união será o próprio d
+                            // SEM CHAVE, d3 USA O ÍNDICE DO ELEMENTO
+
+      // UPDATE
+      // Aplica um estilo nos elementos já existentes
+      text.transition(t)
+        .style('fill', 'gray')
+
+      // ENTER
+      // Seleção dos elementos que devem ser criados para
+      // que a seleção original passe a ter todos dados do join.
+      text.enter()
+        .append('text')
+          .style('fill', 'green')
+          .attr('x', d => alphabet.indexOf(d) * 32)
+          .attr('dy', '.35em')
+          .text(d => d)
+
+      // EXIT
+      // Seleção dos elementos que existiam e que não tem mais
+      // dados no join.
+      text.exit()
+        .transition(t)
+        .style('fill', 'red')
+        .transition(t)
+        .remove()
+    }
+
+    // The initial display.
+    update(alphabet)
+
+    // botao
+    d3.select('#botao')
+      .on('click', d => {
+          let i = Math.floor(Math.random() * 26)
+          update(alphabet.slice(i, i + Math.floor(Math.random() * (26 - i))))
+      })
+  </script>
+  </body>
+</html>

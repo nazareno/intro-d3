@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <!-- Tags básicas -->
+    <title>Injetando elementos no DOM</title>
+    <meta charset="utf-8">
+
+    <!-- Carregando fontes -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto:300&display=swap" rel="stylesheet">
+
+    <!-- Carregando estilos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/guia.css">
+
+    <!-- Carregando bibliotecas -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+          <h2>Injetando elementos no DOM</h2>
+          <p>Além de alterar elementos existentes, d3 pode inserir novos elementos no DOM. Para isso, usamos a função <code>append('[elemento]')</code>.</p>
+          <p>Edite esse código para inserir um novo parágrafo com d3.</p>
+          <div class="highlight" id="novo-paragrafo"></div>
+
+          <h3>Inserindo elementos/dados</h3>
+          <p>Para inserir elementos baseados em dados, usamos a função <code>data([dados])</code> para referenciar o dataset e <code>enter()</code> para criar os elementos.</p>
+          <p>Será que você consegue mostrar todas as frutas do JSON de frutas?</p>
+          <ul class="highlight pl-4" id="dos-dados"></ul>
+
+          <h3>Para entender melhor</h3>
+          <p>Leia a <a href="https://github.com/d3/d3-selection" target="_blank">documentação</a> do <code>d3-selection</code>.</p>
+        </div>
+      </div>
+    </div>
+
+<!-- PARTE 1: select + append  -->
+    <!-- Descomente o código abaixo -->
+    <!-- <script type="text/javascript">
+      d3.select('#novo-paragrafo')
+        .append('p')
+        .text('Sou um parágrafo recém-criado!');
+    </script> -->
+
+<!-- PARTE 2: dados -->
+    <script type="text/javascript">
+      const url = '/dados/frutas.json'
+      const promessa = // Carregue o JSON de frutas
+
+      // O d3 carrega os dados com uma promise
+      // É como se o d3 dissesse: "Javascript, eu quero carregar os dados dessa URL, quando eles estiverem carregados, você executa o que o programador colocou no .then()"
+      promessa
+        .then(dados => {
+          d3.select('#dos-dados') // Selecionamos a lista HTML vazia
+            .selectAll('li') // Estamos selecionando elementos da lista que ainda não existem
+            .data(dados) // Ligamos os elementos <li> aos elementos do JSON frutas.json
+            .enter() // Criamos elementos <li> de acordo com a quantidade de elementos do json
+            .append('li') // Inserimos os <li> na lista HTML com ID #dos-dados
+              .text(elemento => elemento.nome)
+              .style('color', elemento => elemento.cor)
+        })
+
+      // No SELECT, veja que para selecionar um elemento na DOM, podemos utilizar
+      // "#<id>" para recuperar esse elemento através do seu id.
+    </script>
+  </body>
+</html>

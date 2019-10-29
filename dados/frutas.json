@@ -1,0 +1,14 @@
+[
+  {
+    "nome": "pera",
+    "cor" : "limegreen"
+  },
+  {
+    "nome": "uva",
+    "cor" : "purple"
+  },
+  {
+    "nome": "maçã",
+    "cor" : "red"
+  }
+]
