@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Tags básicas -->
+  <title>Um gráfico de barras feitos de divs</title>
+  <meta charset="utf-8">
+
+  <!-- Carregando fontes -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto:300&display=swap" rel="stylesheet">
+
+  <!-- Carregando estilos -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/guia.css">
+  <style>
+    .chart div {
+      font: 10px sans-serif;
+      background-color: steelblue;
+      text-align: right;
+      padding: 3px;
+      margin: 1px;
+      color: white;
+    }
+
+    /* Seletores dinâmicos: */
+/*     .chart div:hover {
+      background-color: yellow;
+      color: steelblue;
+    } */
+  </style>
+</head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h2>Um gráfico de barras só em HTML</h2>
+          <p>
+            Esse é um exemplo utilizando CSS e HTML puro para construir gráficos de barras. Para realizar essa tarefa, utilizamos divs
+            que são estilizadas com a propriedade
+            <code>width</code> para definir quantos píxels cada barra terá. Não precisamos se preocupar com a altura da barra nesse momento,
+            o html já irá inferir um tamanho padrão pelos números que colocamos dentro de cada <code>div</code>.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="chart">
+            <div style="width: 40px;">4</div>
+            <div style="width: 80px;">8</div>
+            <div style="width: 150px;">15</div>
+            <div style="width: 160px;">16</div>
+            <div style="width: 230px;">23</div>
+            <div style="width: 420px;">42</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p>
+            Experimente com o css dos elementos nessa página. Crtl + shift + I, inspecione um elemento do DOM e mexa no css dele. E/ou mexa no css desse html.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
