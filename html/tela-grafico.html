@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <head>
+    <!-- Tags básicas -->
+    <title>Tela e gráfico</title>
+    <meta charset="utf-8">
+
+    <!-- Carregando fontes -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto:300&display=swap" rel="stylesheet">
+
+    <!-- Carregando estilos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/guia.css">
+
+    <!-- Carregando bibliotecas -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+          <h2>Tela e gráfico</h2>
+          <p>
+            Agora vamos colocar retângulos coloridos para podermos ver o espaço que cada componente ocupa na tela.
+          </p>
+          <h3>Faça você mesmo</h3>
+          <p>
+            Tente criar por conta própria a tela e o gráfico, como fizemos na última página. Não vale olhar o código anterior, hein!
+          </p>
+          <div id="visualizacao"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+
+      // const tela = cria o elemento svg dentro da div com id "visualizacao"
+
+      // const grafico = cria um grupo, que vai ser o pai de todos os elementos do gráfico
+
+      tela.insert('rect', ':first-child')
+            .attr('width', '100%')
+            .attr('height', '100%')
+            .style('fill', '#42adf4')
+
+      grafico.append('rect')
+               .attr('width', largura)
+               .attr('height', altura)
+               .style('fill', 'orange')
+    </script>
+  </body>
+</html>

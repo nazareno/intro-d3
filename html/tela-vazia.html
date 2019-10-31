@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <head>
+    <!-- Tags básicas -->
+    <title>Tela vazia</title>
+    <meta charset="utf-8">
+
+    <!-- Carregando fontes -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto:300&display=swap" rel="stylesheet">
+
+    <!-- Carregando estilos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/guia.css">
+
+    <!-- Carregando bibliotecas -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+          <h2>Tela vazia</h2>
+          <p>
+            A primeira coisa que devemos fazer ao contruir uma visualização com d3 é definir o tamanho da tela que pretendemos ocupar. Para isso, criamos variáveis <code>largura</code>, <code>altura</code> e <code>margem</code>.
+          </p>
+          <p>
+            O próximo passo é criar a visualização e definir suas dimensões com base nas variáveis anteriores.
+          </p>
+          <h3>Inspeção</h3>
+          <p>
+            Inspecione a página para ver o espaço que a tela está ocupando.
+          </p>
+          <div id="visualizacao"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      const largura = 500,
+            altura = 500,
+            margem = {
+              esquerda : 10,
+              direita : 10,
+              topo : 10,
+              base : 10
+            }
+
+      const tela = d3.select('#visualizacao')
+                     .append('svg')
+                       .attr('width', largura + margem.esquerda + margem.direita)
+                       .attr('height', altura + margem.topo + margem.base)
+
+      const grafico = tela.append('g')
+                          .attr('transform', `translate(${margem.esquerda}, ${margem.topo})`)
+    </script>
+  </body>
+</html>
