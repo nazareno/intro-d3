@@ -11,9 +11,10 @@
     <!-- Carregando estilos -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/guia.css">
+    <link rel="stylesheet" href="/css/alphabet.css">
 
-    <!-- Carregando bibliotecas -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
+
     <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
   </head>
   <body>
@@ -38,16 +39,18 @@
             Examine como isso é feito aqui e altere o exemplo para que a cor dos pontos também
             codifique o atributo sendo mostrado no raio do círculo. Uma dica é que
             é possível criar escalas de cor aproveitnado o colorbrewer.js importado aqui e
-            d3.scaleQuantize().domain(...).range(colorbrewer.Reds[5]).
+            <code>d3.scaleQuantize().domain(...).range(colorbrewer.Reds[5])</code>.
+          </p>
+          <p>
             Todas as escalas: https://bl.ocks.org/mbostock/5577023
           </p>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-9">
           <h3>Unidade Acadêmica</h3>
           <div class="row mychart" id="chart"/>
-          <div class="col-md-9" id="controls" />
+          <div class="btn-toolbar" id="controls" />
         </div>
       </div>
     </div>
@@ -60,7 +63,7 @@
       .mychart text {
         font: 10px sans-serif;
         text-anchor: middle;
-        color: grey;
+        fill: black;
       }
 
     </style>
@@ -69,22 +72,24 @@
       "use strict"
 
       function criaVisGeral(){
-        d3.csv("https://raw.githubusercontent.com/nazareno/tamanhos-da-ufcg/master/ufcg_uas_com_matriculas.csv", data => (desenhaVis(data)));
+        d3.csv("https://raw.githubusercontent.com/nazareno/tamanhos-da-ufcg/master/ufcg_uas_com_matriculas.csv")
+          .then(data => (desenhaVis(data)));
+
         function desenhaVis(dadosLidos){
           dadosLidos = dadosLidos.filter(d => d.CAMPUS == 1)
 
           // definicoes de altura e largura do svg e da vis dentro
-          var alturaSVG = 700, larguraSVG = 900;
-          var	margin = {top: 30, right: 50, bottom:30, left: 50}, // para descolar a vis das bordas do grafico
+          const alturaSVG = 700, larguraSVG = 900;
+          const	margin = {top: 30, right: 50, bottom:30, left: 50}, // para descolar a vis das bordas do grafico
               larguraVis = larguraSVG - margin.left - margin.right,
               alturaVis = alturaSVG - margin.top - margin.bottom;
 
-          var entreCirculos = 100, circuloInicial = 15;
+          const entreCirculos = 100, circuloInicial = 15;
 
           /*
            * Prepara onde adicionaremos a visualizacao
            */
-          var grafico = d3.select('#chart') // cria elemento <svg> com um <g> dentro
+          const grafico = d3.select('#chart') // cria elemento <svg> com um <g> dentro
             .append('svg')
               .attr('width', larguraVis + margin.left + margin.right)
               .attr('height', alturaVis + margin.top + margin.bottom)
@@ -101,7 +106,7 @@
                                           (Math.floor((i * entreCirculos) / larguraVis) * entreCirculos) +
                                           ")")
 
-          var deptos = d3.selectAll("g.depto")
+          const deptos = d3.selectAll("g.depto")
 
           deptos
             .append("circle")
@@ -139,7 +144,7 @@
             .data(dataKeys)
             .enter()
               .append("button")
-              .attr("class", "btn-default")
+              .attr("class", "btn btn-secondary mt-2 mx-1")
               .on("click", botaoClicado)
               .html(d => d);
 

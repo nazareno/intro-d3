@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/guia.css">
 
-    <!-- Falta alguma coisa aqui -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 
   </head>
 
@@ -48,14 +48,21 @@
       // Dica: está faltando carregar a biblioteca d3.
       // No site da biblioteca tem o link para a versão 5: https://d3js.org/
 
-      const textao = d3.select('#textao')
+      //const textao = d3.select('#textao')
 
-      textao.text('Um parágrafo de textão dizendo várias coisas para o mundo em itálico.')
-        .style('font-style', 'italic')
+      d3.select('#textao')
+            .text('Um parágrafo de textão dizendo várias coisas para o mundo em itálico.')
+            .style('font-style', 'italic')
+            .style('font-size', '40px')
 
       // Tem algo faltando aqui
-
+      const textoColorido = d3.select("#texto-colorido")
       textoColorido.style('color', 'red')
+                    .style('font-size', '60px')
+
+      d3.selectAll('h2')
+            .style('color', 'darkblue')
+
     </script>
   </body>
 </html>

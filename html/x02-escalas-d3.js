@@ -8,7 +8,7 @@ var _loadScript = function(path){
 }
 
 //_loadScript('js/d3.v4.min.js');
-_loadScript('https://d3js.org/d3.v4.min.js');
+_loadScript('https://d3js.org/d3.v5.min.js');
 
 
 // Antes de começar a parte d3, algumas coisas úteis de js:
@@ -96,4 +96,3 @@ var escala_posicao = d3.scaleBand()
                 .range([0, 100]);
 
 ["A", "B", "C"].map(d => escala_posicao(d))
-
